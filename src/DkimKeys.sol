@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-contract DkimKeys {
+import "solmate/auth/Owned.sol";
+
+contract DkimKeys is Owned {
     mapping(bytes => bytes) private dkimKeys;
+
+    constructor() Owned(msg.sender) {}
 }
