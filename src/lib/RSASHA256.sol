@@ -15,7 +15,7 @@ library RSASHA256 {
         // Recover the message from the signature
         bool ok;
         bytes memory result;
-        (ok, result) = RSAVerifier.rsarecover(modulus, exponent, sig);
+        (ok, result) = RSAVerifier.rsaRecover(modulus, exponent, sig);
 
         // Verify it ends with the hash of our data
         return ok && hash == result.toBytes32(result.length - 32);
