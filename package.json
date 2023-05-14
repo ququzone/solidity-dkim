@@ -1,0 +1,15 @@
+{
+  "name": "solidity-dkim",
+  "version": "1.0.0",
+  "description": "Solidity DKIM verifier",
+  "repository": "https://github.com/ququzone/solidity-dkim.git",
+  "author": "ququzone <xueping.yang@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.3.1",
+    "prettier-plugin-solidity": "^1.0.0-beta.13"
+  },
+  "scripts": {
+    "lint": "prettier --write **.sol"
+  }
+}

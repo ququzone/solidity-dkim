@@ -7,11 +7,12 @@ import "./RSAVerifier.sol";
 library RSASHA256 {
     using BytesUtils for *;
 
-    function verify(bytes32 hash, bytes calldata sig, bytes calldata exponent, bytes calldata modulus)
-        external
-        view
-        returns (bool)
-    {
+    function verify(
+        bytes32 hash,
+        bytes calldata sig,
+        bytes calldata exponent,
+        bytes calldata modulus
+    ) external view returns (bool) {
         // Recover the message from the signature
         bool ok;
         bytes memory result;

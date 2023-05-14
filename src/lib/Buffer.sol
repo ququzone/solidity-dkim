@@ -26,7 +26,10 @@ library Buffer {
      * @param capacity The number of bytes of space to allocate the buffer.
      * @return The buffer, for chaining.
      */
-    function init(buffer memory buf, uint256 capacity) internal pure returns (buffer memory) {
+    function init(
+        buffer memory buf,
+        uint256 capacity
+    ) internal pure returns (buffer memory) {
         if (capacity % 32 != 0) {
             capacity += 32 - (capacity % 32);
         }
@@ -89,11 +92,12 @@ library Buffer {
      * @param len The number of bytes to copy.
      * @return The original buffer, for chaining.
      */
-    function write(buffer memory buf, uint256 off, bytes memory data, uint256 len)
-        internal
-        pure
-        returns (buffer memory)
-    {
+    function write(
+        buffer memory buf,
+        uint256 off,
+        bytes memory data,
+        uint256 len
+    ) internal pure returns (buffer memory) {
         require(len <= data.length);
 
         if (off + len > buf.capacity) {
@@ -110,7 +114,9 @@ library Buffer {
             // Start address = buffer address + offset + sizeof(buffer length)
             dest := add(add(bufptr, 32), off)
             // Update buffer length if we're extending it
-            if gt(add(len, off), buflen) { mstore(bufptr, add(len, off)) }
+            if gt(add(len, off), buflen) {
+                mstore(bufptr, add(len, off))
+            }
             src := add(data, 32)
         }
 
@@ -142,7 +148,11 @@ library Buffer {
      * @param len The number of bytes to copy.
      * @return The original buffer, for chaining.
      */
-    function append(buffer memory buf, bytes memory data, uint256 len) internal pure returns (buffer memory) {
+    function append(
+        buffer memory buf,
+        bytes memory data,
+        uint256 len
+    ) internal pure returns (buffer memory) {
         return write(buf, buf.buf.length, data, len);
     }
 
@@ -153,7 +163,10 @@ library Buffer {
      * @param data The data to append.
      * @return The original buffer, for chaining.
      */
-    function append(buffer memory buf, bytes memory data) internal pure returns (buffer memory) {
+    function append(
+        buffer memory buf,
+        bytes memory data
+    ) internal pure returns (buffer memory) {
         return write(buf, buf.buf.length, data, data.length);
     }
 
@@ -165,7 +178,11 @@ library Buffer {
      * @param data The data to append.
      * @return The original buffer, for chaining.
      */
-    function writeUint8(buffer memory buf, uint256 off, uint8 data) internal pure returns (buffer memory) {
+    function writeUint8(
+        buffer memory buf,
+        uint256 off,
+        uint8 data
+    ) internal pure returns (buffer memory) {
         if (off > buf.capacity) {
             resize(buf, buf.capacity * 2);
         }
@@ -179,7 +196,9 @@ library Buffer {
             let dest := add(add(bufptr, off), 32)
             mstore8(dest, data)
             // Update buffer length if we extended it
-            if eq(off, buflen) { mstore(bufptr, add(buflen, 1)) }
+            if eq(off, buflen) {
+                mstore(bufptr, add(buflen, 1))
+            }
         }
         return buf;
     }
@@ -191,7 +210,10 @@ library Buffer {
      * @param data The data to append.
      * @return The original buffer, for chaining.
      */
-    function appendUint8(buffer memory buf, uint8 data) internal pure returns (buffer memory) {
+    function appendUint8(
+        buffer memory buf,
+        uint8 data
+    ) internal pure returns (buffer memory) {
         return writeUint8(buf, buf.buf.length, data);
     }
 
@@ -204,7 +226,12 @@ library Buffer {
      * @param len The number of bytes to write (left-aligned).
      * @return The original buffer, for chaining.
      */
-    function write(buffer memory buf, uint256 off, bytes32 data, uint256 len) private pure returns (buffer memory) {
+    function write(
+        buffer memory buf,
+        uint256 off,
+        bytes32 data,
+        uint256 len
+    ) private pure returns (buffer memory) {
         if (len + off > buf.capacity) {
             resize(buf, max(buf.capacity, len) * 2);
         }
@@ -219,7 +246,9 @@ library Buffer {
             let dest := add(add(bufptr, off), len)
             mstore(dest, or(and(mload(dest), not(mask)), data))
             // Update buffer length if we extended it
-            if gt(add(off, len), mload(bufptr)) { mstore(bufptr, add(off, len)) }
+            if gt(add(off, len), mload(bufptr)) {
+                mstore(bufptr, add(off, len))
+            }
         }
         return buf;
     }
@@ -232,7 +261,11 @@ library Buffer {
      * @param data The data to append.
      * @return The original buffer, for chaining.
      */
-    function writeBytes20(buffer memory buf, uint256 off, bytes20 data) internal pure returns (buffer memory) {
+    function writeBytes20(
+        buffer memory buf,
+        uint256 off,
+        bytes20 data
+    ) internal pure returns (buffer memory) {
         return write(buf, off, bytes32(data), 20);
     }
 
@@ -243,7 +276,10 @@ library Buffer {
      * @param data The data to append.
      * @return The original buffer, for chhaining.
      */
-    function appendBytes20(buffer memory buf, bytes20 data) internal pure returns (buffer memory) {
+    function appendBytes20(
+        buffer memory buf,
+        bytes20 data
+    ) internal pure returns (buffer memory) {
         return write(buf, buf.buf.length, bytes32(data), 20);
     }
 
@@ -254,7 +290,10 @@ library Buffer {
      * @param data The data to append.
      * @return The original buffer, for chaining.
      */
-    function appendBytes32(buffer memory buf, bytes32 data) internal pure returns (buffer memory) {
+    function appendBytes32(
+        buffer memory buf,
+        bytes32 data
+    ) internal pure returns (buffer memory) {
         return write(buf, buf.buf.length, data, 32);
     }
 
@@ -267,7 +306,12 @@ library Buffer {
      * @param len The number of bytes to write (right-aligned).
      * @return The original buffer, for chaining.
      */
-    function writeInt(buffer memory buf, uint256 off, uint256 data, uint256 len) private pure returns (buffer memory) {
+    function writeInt(
+        buffer memory buf,
+        uint256 off,
+        uint256 data,
+        uint256 len
+    ) private pure returns (buffer memory) {
         if (len + off > buf.capacity) {
             resize(buf, max(buf.capacity, len + off) * 2);
         }
@@ -280,7 +324,9 @@ library Buffer {
             let dest := add(add(bufptr, off), len)
             mstore(dest, or(and(mload(dest), not(mask)), data))
             // Update buffer length if we extended it
-            if gt(add(off, len), mload(bufptr)) { mstore(bufptr, add(off, len)) }
+            if gt(add(off, len), mload(bufptr)) {
+                mstore(bufptr, add(off, len))
+            }
         }
         return buf;
     }
