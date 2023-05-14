@@ -25,6 +25,10 @@ contract DkimVerifier {
         return data.slice(index, length);
     }
 
+    function hash(bytes memory data) public pure returns (bytes32) {
+        return sha256(data.slice(16, data.length - 16));
+    }
+
     function verify(bytes32 server, bytes calldata data, bytes calldata signature) external view returns (bool) {
         return false;
     }

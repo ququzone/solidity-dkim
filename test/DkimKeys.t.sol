@@ -22,5 +22,8 @@ contract DkimVerifierTest is Test {
 
         bytes memory subject = verifier.subject(data);
         assertEq(subject, abi.encodePacked("hello"));
+
+        bytes32 hash = verifier.hash(data);
+        assertEq(hash, hex"86ca54d1fc1493f3d9e8865db9734886697d229b8544eaedeca53f37995b7fee");
     }
 }
