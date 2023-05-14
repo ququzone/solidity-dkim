@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "solmate/auth/Owned.sol";
+import "../lib/solmate/src/auth/Owned.sol";
 
 contract DkimKeys is Owned {
     event UpdateDKIMKey(bytes32 server, bytes key);
