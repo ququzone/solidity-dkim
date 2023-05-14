@@ -1,6 +1,12 @@
 Solidity DKIM verify
 ====================
 
+## Install
+
+```
+yarn add solidity-dkim
+```
+
 ## Add server
 
 ```
