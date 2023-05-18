@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {DkimKeys} from "./DkimKeys.sol";
 import {BytesUtils} from "./lib/BytesUtils.sol";
-import {RSASHA256} from "./lib/RSASHA256.sol";
+import {RSAVerifier} from "./lib/RSAVerifier.sol";
 
 contract DkimVerifier {
     using BytesUtils for bytes;
@@ -32,6 +32,9 @@ contract DkimVerifier {
 
     function verify(bytes32 server, bytes calldata data, bytes calldata signature) external view returns (bool) {
         bytes memory modulus = keys.getKey(server);
-        return RSASHA256.verify(hash(data), signature, hex"010001", modulus);
+        bool ok;
+        bytes memory result;
+        (ok, result) = RSAVerifier.rsaRecover(modulus, hex"010001", signature);
+        return ok && hash(data) == result.toBytes32(result.length - 32);
     }
 }

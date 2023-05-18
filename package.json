@@ -1,6 +1,6 @@
 {
   "name": "solidity-dkim",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Solidity DKIM verifier",
   "repository": "https://github.com/ququzone/solidity-dkim.git",
   "author": "ququzone <xueping.yang@gmail.com>",
