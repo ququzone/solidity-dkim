@@ -25,6 +25,13 @@ cast send <dkim_keys_address> "updateKey(bytes32, bytes)" \
   --private-key=$PRIVATE_KEY --legacy
 ```
 
+// google.iotex.io
+// cast keccak google.iotex.io - 0x6cfd69594d6e6cd8d64e1074969af1631031d7a36432f4f283f0e11a9383281e
+cast send <dkim_keys_address> "updateKey(bytes32, bytes)" \
+  0x6cfd69594d6e6cd8d64e1074969af1631031d7a36432f4f283f0e11a9383281e \
+  0x82adae6927cb16b7df13b0198797fcc80e08e814ad7cb90a89d037c14d127cd90f919bddac4d3bec1dde84af54bc87d91f38a02c31b8d02729353c1bd9ca82814ad12ffb085da953ebcbd34b5d6bd51a1e5b415c62571e73f8623678965e43eb7fae5ea7447d9ce5b5c1fb0e3108a98c112cd29204426c12bd7326c966caaf46c0de075bd47c4c36a02c341d54c193d0173b3b4f7a898695c9149b9937710903cd6d9816d7dae07c98396f858dc87372062004fc123046eb97165e2bae1d7f4a119420d95e1ac42282b6a3dd05cbcd7fac5f62e484e5e7a3b9fdc0988fe31231c52edc4012d21e2044fccaae47f4087d305eee295ada5637e4a023f76f933561 \
+  --private-key=$PRIVATE_KEY --legacy
+
 ## Deploy
 
 ```
